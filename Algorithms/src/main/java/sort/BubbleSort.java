@@ -55,7 +55,7 @@ public class BubbleSort {
 			System.out.println(x);}
 			return;
 		} 
-		
+		// Each iteration moves the biggest number to the back
 		recursiveSort(arr, n-1);
 	}
 	
