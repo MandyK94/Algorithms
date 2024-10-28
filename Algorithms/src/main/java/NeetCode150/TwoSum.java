@@ -8,15 +8,12 @@ public int[] twoSum(int[] nums, int target) {
 		
         for(int i=0;i<nums.length;i++) {
         	int rem = target - nums[i];
-        	System.out.println("Target "+target+", num "+nums[i]);
-        	System.out.println(rem);
-        		for(int j=i+1;j<nums.length;j++) {
-        			if(nums[j]==rem) {
-        				int[] arr = {i, j};
-        				return arr;
-        			}
-        		}
-        	
+    		for(int j=i+1;j<nums.length;j++) {
+    			if(nums[j]==rem) {
+    				int[] arr = {i, j};
+    				return arr;
+    			}
+    		}
         }
         return null;
     }
