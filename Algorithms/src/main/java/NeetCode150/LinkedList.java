@@ -70,6 +70,56 @@ public class LinkedList {
 		return false;
 	}
 	
+	public void reorderList(ListNode head) {
+		
+		ListNode slow = head;
+		ListNode fast = head.next;
+		
+		while(fast!=null && fast.next!=null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		
+		ListNode second = slow.next;
+		ListNode prev = slow.next=null;
+		while(second!=null) {
+			ListNode temp = second.next;
+			second.next = prev;
+			prev = second;
+			second = temp;
+		}
+		
+		ListNode first = head;
+		second = prev;
+		while(second!=null) {
+			ListNode temp1 = first.next;
+			ListNode temp2 = second.next;
+			first.next = second;
+			second.next = temp1;
+			first=temp1;
+			second = temp2;
+		}
+	}
+	
+	public ListNode removeNthFromEnd(ListNode head, int n) {
+		
+		ListNode dummy = new ListNode(0, head);
+        ListNode ptr2 = dummy;
+		ListNode ptr1 = head;
+		while(n>0 ) {
+			ptr1 = ptr1.next;
+			n--;
+		}
+        
+		while(ptr1!=null) {
+			ptr1 = ptr1.next;
+			ptr2 = ptr2.next;
+		}
+		
+		ptr2.next = ptr2.next.next;
+		return dummy.next;
+	}
+	
 	public static void main(String[] args) {
 		LinkedList.reverseList(null);
 	}
