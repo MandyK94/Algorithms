@@ -120,7 +120,39 @@ public class LinkedList {
 		return dummy.next;
 	}
 	
+	public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+		
+		ListNode dummy = new ListNode();
+		ListNode node = dummy;
+		int carry = 0;
+		while(l1!=null || l2!=null || carry!=0) {
+			int val1 = l1!=null?l1.val:0;
+			int val2 = l2!=null?l2.val:0;
+			
+			int x = val1+val2+carry;
+			carry =x/10;
+			x = x%10;
+			node.next = new ListNode(x);
+			node = node.next;
+			l1 = l1!=null?l1.next:null;
+			l2 = l2!=null?l2.next:null;	
+		}
+		return dummy.next;
+	}
+	
+	
 	public static void main(String[] args) {
-		LinkedList.reverseList(null);
+		LinkedList list = new LinkedList();
+		ListNode l1= list.new ListNode(1);
+		ListNode l2= list.new ListNode(2);
+		ListNode l3= list.new ListNode(3);
+		l1.next = l2;
+		l2.next=l3;
+		ListNode l11= list.new ListNode(4);
+		ListNode l12= list.new ListNode(5);
+		ListNode l13= list.new ListNode(6);
+		l11.next=l12;
+		l12.next=l13;
+		System.out.println(list.addTwoNumbers(l1, l11).val);
 	}
 }
