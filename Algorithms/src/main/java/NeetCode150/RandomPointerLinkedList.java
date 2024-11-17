@@ -1,8 +1,5 @@
 package NeetCode150;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class RandomPointerLinkedList {
 
 	private class Node {
