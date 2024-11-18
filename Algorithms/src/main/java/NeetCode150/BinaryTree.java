@@ -166,18 +166,62 @@ public class BinaryTree {
     		if(rightNode!=null) {
     			list.add(rightNode.val);
     		}
-    	}
-    	
+    	}	
     	return list;
     }
     
+    private void maxFromRoot(TreeNode node, int max, int[] res) {
+    	if(node==null) {
+    		return;
+    	}
+    	if(node.val>=max) {
+    		System.out.println(node.val+ " "+max);
+    		max= node.val;
+    		res[0]++;
+    	}
+    	maxFromRoot(node.left, max, res);
+    	maxFromRoot(node.right, max, res);
+    }
+    
+    public int goodNodes(TreeNode root) {
+    	int[] res = new int[1];
+    	maxFromRoot(root, root.val, res);
+    	return res[0];
+    }
+    
+    private boolean checkBSTBoundary(TreeNode node, int min, int max) {
+    	if(node==null) {
+    		return true;
+    	}
+    	if(node.val>min && node.val<max) {
+    		return checkBSTBoundary(node.left, min, node.val) && checkBSTBoundary(node.right, node.val, max);
+    	}
+    	return false;
+    }
+    
+    public boolean isValidBST(TreeNode root) {
+    	if(root==null) {
+    		return true;
+    	}
+    	return checkBSTBoundary(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+    
     public static void main(String[] args) {
+    	//root=[-1,5,-2,4,4,2,-2,null,null,-4,null,-2,3,null,-2,0,null,-1,null,-3,null,-4,-3,3,null,null,null,null,null,null,null,3,-3]
     	BinaryTree tree = new BinaryTree();
-		TreeNode root = tree.new TreeNode(1);
-		TreeNode node1 = tree.new TreeNode(2);
-		TreeNode node2 = tree.new TreeNode(3);
+		TreeNode root = tree.new TreeNode(2);
+		TreeNode node1 = tree.new TreeNode(1);
+		TreeNode node2 = tree.new TreeNode(1);
+		TreeNode node3 = tree.new TreeNode(3);
+		TreeNode node4 = tree.new TreeNode();
+		TreeNode node5 = tree.new TreeNode(1);
+		TreeNode node6 = tree.new TreeNode(5);
 		root.left = node1;
 		root.right = node2;
-		System.out.println(tree.rightSideView(root));
+		node1.left = node3;
+		node1.right = node4;
+		node2.left = node5;
+		node2.right = node6;
+		System.out.println(tree.goodNodes(root));
 	}
 }
