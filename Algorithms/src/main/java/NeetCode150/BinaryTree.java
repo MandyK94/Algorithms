@@ -260,7 +260,7 @@ public class BinaryTree {
 		//System.out.println(tree.kthSmallest(root, 4));
 		int[] preorder = new int[] {1,2,3,4};
 		int[] inorder = new int[] {2,1,3,4};
-		//tree.buildTree(preorder, inorder);
-		System.out.println(Arrays.copyOfRange(preorder, 0, 2).length);
+		tree.buildTree(preorder, inorder);
+		
 	}
 }
