@@ -1,10 +1,12 @@
 package NeetCode150;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.stream.IntStream;
 
 public class BinaryTree {
 
@@ -221,6 +223,24 @@ public class BinaryTree {
     	return res[1];
     }
     
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+    	if(preorder.length==0) {
+    		return null;
+    	}
+    	TreeNode root = new TreeNode(preorder[0]);
+    	
+    	int rootIndex = IntStream.range(0, inorder.length).filter(i->inorder[i]==preorder[0]).findFirst().getAsInt();
+    	
+    	
+    	TreeNode left = buildTree(Arrays.copyOfRange(preorder, 1, rootIndex), Arrays.copyOfRange(inorder, 0, rootIndex));
+    	TreeNode right = buildTree(Arrays.copyOfRange(preorder, rootIndex+1, preorder.length), Arrays.copyOfRange(inorder, rootIndex, preorder.length));
+    	
+    	root.left = left;
+    	root.right = right;
+    	
+    	return root;
+    }
+    
     public static void main(String[] args) {
     	//root=[-1,5,-2,4,4,2,-2,null,null,-4,null,-2,3,null,-2,0,null,-1,null,-3,null,-4,-3,3,null,null,null,null,null,null,null,3,-3]
     	BinaryTree tree = new BinaryTree();
@@ -237,6 +257,10 @@ public class BinaryTree {
 		node1.right = node4;
 		//node2.left = node5;
 		//node2.right = node6;
-		System.out.println(tree.kthSmallest(root, 4));
+		//System.out.println(tree.kthSmallest(root, 4));
+		int[] preorder = new int[] {1,2,3,4};
+		int[] inorder = new int[] {2,1,3,4};
+		//tree.buildTree(preorder, inorder);
+		System.out.println(Arrays.copyOfRange(preorder, 0, 2).length);
 	}
 }
