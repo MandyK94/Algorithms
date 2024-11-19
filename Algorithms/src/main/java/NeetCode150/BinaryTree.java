@@ -40,9 +40,7 @@ public class BinaryTree {
         if(root.left==null && root.right==null) {
 			return 1;
 		} 
-        
 		return Math.max(maxDepth(root.left), maxDepth(root.right))+1;
-		
 	}
 	
 	private int dfsDiameter(TreeNode root, int res[]) {
@@ -83,7 +81,6 @@ public class BinaryTree {
 		if(p==null && q==null ) {
 			return true;
 		}
-		
 		if(p!=null && q!=null && p.val==q.val) {
 			return (isSameTree(p.left, q.left)&&isSameTree(p.right, q.right));
 		}
@@ -97,7 +94,6 @@ public class BinaryTree {
 		if(subRoot == null) {
 			return false;
 		}
-		
 		if(isSameTree(root, subRoot)) {
 			return true;
 		}
@@ -108,7 +104,6 @@ public class BinaryTree {
     	if(root==null) {
     		return null;
     	}
-    	
     	while(root!=null) {
     		if(root.val==p.val || root.val==q.val) {
     			return root;
@@ -206,22 +201,42 @@ public class BinaryTree {
     	return checkBSTBoundary(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
     
+    private void dfsKthSmallet(TreeNode node, int[] res) {
+    	if(node==null){
+    		return;
+    	}
+    	dfsKthSmallet(node.left, res);
+    	res[0]--;
+    	if(res[0]==0) {
+    		res[1] = node.val;
+    		return ;
+    	}
+    	dfsKthSmallet(node.right, res);
+    }
+    
+    public int kthSmallest(TreeNode root, int k) {
+    	int[] res = new int[2];
+    	res[0]=k;
+    	dfsKthSmallet(root, res);
+    	return res[1];
+    }
+    
     public static void main(String[] args) {
     	//root=[-1,5,-2,4,4,2,-2,null,null,-4,null,-2,3,null,-2,0,null,-1,null,-3,null,-4,-3,3,null,null,null,null,null,null,null,3,-3]
     	BinaryTree tree = new BinaryTree();
-		TreeNode root = tree.new TreeNode(2);
-		TreeNode node1 = tree.new TreeNode(1);
-		TreeNode node2 = tree.new TreeNode(1);
-		TreeNode node3 = tree.new TreeNode(3);
+		TreeNode root = tree.new TreeNode(4);
+		TreeNode node1 = tree.new TreeNode(3);
+		TreeNode node2 = tree.new TreeNode(5);
+		TreeNode node3 = tree.new TreeNode(2);
 		TreeNode node4 = tree.new TreeNode();
-		TreeNode node5 = tree.new TreeNode(1);
+		//TreeNode node5 = tree.new TreeNode(1);
 		TreeNode node6 = tree.new TreeNode(5);
 		root.left = node1;
 		root.right = node2;
 		node1.left = node3;
 		node1.right = node4;
-		node2.left = node5;
-		node2.right = node6;
-		System.out.println(tree.goodNodes(root));
+		//node2.left = node5;
+		//node2.right = node6;
+		System.out.println(tree.kthSmallest(root, 4));
 	}
 }
