@@ -31,6 +31,6 @@ public class Subsets {
 		Subsets s = new Subsets();
 		int[] nums = {1, 2, 3};
 		System.out.println(s.subsets(nums));
-;	}
+	}
 	
 }
